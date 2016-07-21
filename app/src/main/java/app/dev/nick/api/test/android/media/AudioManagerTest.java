@@ -10,6 +10,7 @@ import java.util.List;
 
 import app.dev.nick.api.dashboard.BaseTest;
 import app.dev.nick.api.model.API;
+import app.dev.nick.api.model.Result;
 
 public class AudioManagerTest extends BaseTest {
 
@@ -32,11 +33,11 @@ public class AudioManagerTest extends BaseTest {
 
         API playSoundEffect = new API.Builder()
                 .clz(AudioManager.class)
-                .result("Click")
-                .action(new Runnable() {
+                .action(new API.Action() {
                     @Override
-                    public void run() {
+                    public void run(API api) {
                         audioManager.playSoundEffect(AudioManager.FX_KEYPRESS_DELETE);
+                        api.setResult(Result.PASS.name());
                     }
                 })
                 .method("playSoundEffect")

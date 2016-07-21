@@ -90,13 +90,21 @@ public class BaseTest extends AppCompatActivity {
         public void onBindViewHolder(final TwoLinesViewHolder holder, final int position) {
             final API item = data.get(position);
             holder.title.setText(item.getClz().getSimpleName() + "." + item.getMethod());
-            holder.description.setText(item.getResult() == null ? "No result yet" : item.getResult());
-            final Runnable action = item.getAction();
+            String descriptionText = item.getResult();
+            if (descriptionText == null) {
+                if (item.getAction() != null) {
+                    descriptionText =  "Click to run an action";
+                } else {
+                    descriptionText = "No result yet";
+                }
+            }
+            holder.description.setText(descriptionText);
+            final API.Action action = item.getAction();
             if (action != null) {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        action.run();
+                        action.run(item);
                         // Update result.
                         holder.description.setText(item.getResult() == null ? "No result yet" : item.getResult());
                     }

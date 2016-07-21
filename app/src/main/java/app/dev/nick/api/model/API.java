@@ -22,9 +22,9 @@ public class API {
     private String method;
     private String result;
     private String[] params;
-    private Runnable action;
+    private Action action;
 
-    private API(Class clz, String method, String[] params, String result, Runnable action) {
+    private API(Class clz, String method, String[] params, String result, Action action) {
         this.clz = clz;
         this.method = method;
         this.params = params;
@@ -52,7 +52,7 @@ public class API {
         this.result = result;
     }
 
-    public Runnable getAction() {
+    public Action getAction() {
         return action;
     }
 
@@ -61,7 +61,7 @@ public class API {
         private String method;
         private String result;
         private String[] params;
-        private Runnable action;
+        private Action action;
 
         public Builder clz(Class clz) {
             this.clz = clz;
@@ -83,7 +83,7 @@ public class API {
             return this;
         }
 
-        public Builder action(Runnable action) {
+        public Builder action(Action action) {
             this.action = action;
             return this;
         }
@@ -91,5 +91,9 @@ public class API {
         public API build() {
             return new API(clz, method, params, result, action);
         }
+    }
+
+    public interface Action {
+        void run(API api);
     }
 }
