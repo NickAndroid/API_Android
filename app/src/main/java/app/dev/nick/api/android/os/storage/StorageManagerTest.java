@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package app.dev.nick.hiddenapi.android.os.storage;
+package app.dev.nick.api.android.os.storage;
 
 import android.os.Bundle;
 import android.os.storage.StorageManager;
@@ -28,8 +28,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import app.dev.nick.hiddenapi.BaseTest;
-import app.dev.nick.hiddenapi.Hook;
+import app.dev.nick.api.BaseTest;
+import app.dev.nick.api.Hook;
 import dev.nick.hook.android.os.storage.StorageManagerHook;
 import dev.nick.hook.android.os.storage.StorageVolumeHook;
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package app.dev.nick.hiddenapi;
+package app.dev.nick.api;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

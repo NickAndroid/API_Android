@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package app.dev.nick.hiddenapi.android.media;
+package app.dev.nick.api.android.media;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import app.dev.nick.hiddenapi.BaseTest;
-import app.dev.nick.hiddenapi.Hook;
+import app.dev.nick.api.BaseTest;
+import app.dev.nick.api.Hook;
 import dev.nick.hook.android.media.MediaFile;
 
 public class MediaFileTest extends BaseTest {

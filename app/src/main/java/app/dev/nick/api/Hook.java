@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package app.dev.nick.hiddenapi;
+package app.dev.nick.api;
 
 public class Hook {
 

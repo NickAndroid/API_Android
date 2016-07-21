@@ -1,4 +1,4 @@
-package app.dev.nick.hiddenapi;
+package app.dev.nick.api;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
