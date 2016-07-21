@@ -1,7 +1,9 @@
-package app.dev.nick.api;
+package app.dev.nick.api.dashboard;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import app.dev.nick.api.R;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package app.dev.nick.api;
+package app.dev.nick.api.dashboard;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -32,6 +33,9 @@ import com.nick.scalpel.annotation.binding.FindView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import app.dev.nick.api.R;
+import app.dev.nick.api.model.API;
 
 @SuppressWarnings("ConstantConditions")
 public class BaseTest extends AppCompatActivity {
@@ -52,7 +56,7 @@ public class BaseTest extends AppCompatActivity {
         });
     }
 
-    protected List<Hook> onStartHook() {
+    protected List<API> onStartTest() {
         return new ArrayList<>(0);
     }
 
@@ -60,7 +64,7 @@ public class BaseTest extends AppCompatActivity {
         setTitle(getClass().getSimpleName());
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
-        mRecyclerView.setAdapter(new Adapter(onStartHook()));
+        mRecyclerView.setAdapter(new Adapter(onStartTest()));
     }
 
     public void scrollToTop() {
@@ -69,9 +73,9 @@ public class BaseTest extends AppCompatActivity {
 
     private class Adapter extends RecyclerView.Adapter<TwoLinesViewHolder> {
 
-        private final List<Hook> data;
+        private final List<API> data;
 
-        public Adapter(List<Hook> data) {
+        public Adapter(List<API> data) {
             this.data = data;
         }
 
@@ -81,11 +85,25 @@ public class BaseTest extends AppCompatActivity {
             return new TwoLinesViewHolder(view);
         }
 
+        @SuppressLint("SetTextI18n")
         @Override
         public void onBindViewHolder(final TwoLinesViewHolder holder, final int position) {
-            final Hook item = data.get(position);
+            final API item = data.get(position);
             holder.title.setText(item.getClz().getSimpleName() + "." + item.getMethod());
-            holder.description.setText(item.getResult());
+            holder.description.setText(item.getResult() == null ? "No result yet" : item.getResult());
+            final Runnable action = item.getAction();
+            if (action != null) {
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        action.run();
+                        // Update result.
+                        holder.description.setText(item.getResult() == null ? "No result yet" : item.getResult());
+                    }
+                });
+            } else {
+                holder.itemView.setOnClickListener(null);
+            }
         }
 
         @Override

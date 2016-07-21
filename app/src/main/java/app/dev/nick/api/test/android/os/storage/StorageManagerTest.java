@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package app.dev.nick.api.android.os.storage;
+package app.dev.nick.api.test.android.os.storage;
 
 import android.os.Bundle;
 import android.os.storage.StorageManager;
@@ -28,8 +28,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import app.dev.nick.api.BaseTest;
-import app.dev.nick.api.Hook;
+import app.dev.nick.api.dashboard.BaseTest;
+import app.dev.nick.api.model.API;
 import dev.nick.hook.android.os.storage.StorageManagerHook;
 import dev.nick.hook.android.os.storage.StorageVolumeHook;
 
@@ -44,14 +44,14 @@ public class StorageManagerTest extends BaseTest {
     }
 
     @Override
-    protected List<Hook> onStartHook() {
+    protected List<API> onStartTest() {
 
         Scalpel.getInstance().wire(this);
 
-        List<Hook> hooks = new ArrayList<>();
+        List<API> APIs = new ArrayList<>();
 
         StorageManagerHook storageManagerHook = new StorageManagerHook(storageManager);
-        hooks.add(new Hook
+        APIs.add(new API
                 .Builder()
                 .clz(StorageManager.class)
                 .method("getVolumeList")
@@ -60,31 +60,31 @@ public class StorageManagerTest extends BaseTest {
 
         for (StorageVolume v : storageManagerHook.getVolumeList()) {
             StorageVolumeHook volumeHook = new StorageVolumeHook(v, getApplicationContext());
-            hooks.add(new Hook
+            APIs.add(new API
                     .Builder()
                     .clz(StorageVolume.class)
                     .method("getDescription")
                     .result(volumeHook.getDescription())
                     .build());
-            hooks.add(new Hook
+            APIs.add(new API
                     .Builder()
                     .clz(StorageVolume.class)
                     .method("getPath")
                     .result(volumeHook.getPath())
                     .build());
-            hooks.add(new Hook
+            APIs.add(new API
                     .Builder()
                     .clz(StorageVolume.class)
                     .method("getState")
                     .result(volumeHook.getState())
                     .build());
-            hooks.add(new Hook
+            APIs.add(new API
                     .Builder()
                     .clz(StorageVolume.class)
                     .method("allowMessStorage")
                     .result(String.valueOf(volumeHook.allowMessStorage()))
                     .build());
-            hooks.add(new Hook
+            APIs.add(new API
                     .Builder()
                     .clz(StorageVolume.class)
                     .method("isEmulated")
@@ -92,6 +92,6 @@ public class StorageManagerTest extends BaseTest {
                     .build());
         }
 
-        return hooks;
+        return APIs;
     }
 }

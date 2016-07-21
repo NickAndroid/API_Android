@@ -14,20 +14,22 @@
  * limitations under the License.
  */
 
-package app.dev.nick.api;
+package app.dev.nick.api.model;
 
-public class Hook {
+public class API {
 
     private Class clz;
     private String method;
     private String result;
     private String[] params;
+    private Runnable action;
 
-    private Hook(Class clz, String method, String[] params, String result) {
+    private API(Class clz, String method, String[] params, String result, Runnable action) {
         this.clz = clz;
         this.method = method;
         this.params = params;
         this.result = result;
+        this.action = action;
     }
 
     public Class getClz() {
@@ -46,11 +48,20 @@ public class Hook {
         return result;
     }
 
+    public void setResult(String result) {
+        this.result = result;
+    }
+
+    public Runnable getAction() {
+        return action;
+    }
+
     public static class Builder {
         private Class clz;
         private String method;
         private String result;
         private String[] params;
+        private Runnable action;
 
         public Builder clz(Class clz) {
             this.clz = clz;
@@ -72,8 +83,13 @@ public class Hook {
             return this;
         }
 
-        public Hook build() {
-            return new Hook(clz, method, params, result);
+        public Builder action(Runnable action) {
+            this.action = action;
+            return this;
+        }
+
+        public API build() {
+            return new API(clz, method, params, result, action);
         }
     }
 }

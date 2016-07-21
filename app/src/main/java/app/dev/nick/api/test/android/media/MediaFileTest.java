@@ -14,28 +14,28 @@
  * limitations under the License.
  */
 
-package app.dev.nick.api.android.media;
+package app.dev.nick.api.test.android.media;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import app.dev.nick.api.BaseTest;
-import app.dev.nick.api.Hook;
+import app.dev.nick.api.dashboard.BaseTest;
+import app.dev.nick.api.model.API;
 import dev.nick.hook.android.media.MediaFile;
 
 public class MediaFileTest extends BaseTest {
 
     @Override
-    protected List<Hook> onStartHook() {
+    protected List<API> onStartTest() {
 
-        List<Hook> hooks = new ArrayList<>();
+        List<API> APIs = new ArrayList<>();
 
-        hooks.add(new Hook.Builder()
+        APIs.add(new API.Builder()
                 .clz(MediaFile.class)
                 .method("getFileTypeForMimeType")
                 .result(String.valueOf(MediaFile.getFileTypeForMimeType("video/mp4")))
                 .build());
 
-        return hooks;
+        return APIs;
     }
 }
