@@ -89,7 +89,7 @@ public class BaseTest extends AppCompatActivity {
         @Override
         public void onBindViewHolder(final TwoLinesViewHolder holder, final int position) {
             final API item = data.get(position);
-            holder.title.setText(item.getClz().getSimpleName() + "." + item.getMethod());
+            holder.title.setText(item.getMethod());
             String descriptionText = item.getResult();
             if (descriptionText == null) {
                 if (item.getAction() != null) {
